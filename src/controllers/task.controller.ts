@@ -9,6 +9,10 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
             title: title,
             description: description
         })
+
+        return res
+      .status(201)
+      .json({ message: "Task created with success", data: taskCreated });
     } catch (error) {
         console.log(error);
     return res
