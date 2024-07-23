@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Task } from "../models/task.models";
+import { TaskTag } from "../models/taskTag.model";
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -21,7 +22,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
     }
 }
 
-export const getTask = async (req: Request, res: Response, next: NextFunction) => {
+export const listTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const taskData = await Task.findAll()
 
@@ -76,12 +77,38 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 }
 
 export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
+    try {
+        const id = req.params.id
+    
+        const deletedTask = await Task.destroy({
+            where:{taskId: id}
+        })
+    
+        return res.status(201).json({message: "Task deleted sucessfully"})
+        
+    } catch (error) {
+        console.log(error);
+    return res
+      .status(500)
+      .json({ message: "error at created Task", error: error });
+    }
 
-    const deletedTask = await Task.destroy({
-        where:{taskId: id}
-    })
+}
 
-    return res.status(201).json({message: "Task deleted sucessfully"})
+export const filteredTask = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {tagId} = req.body
+        const tagExists = await TaskTag.findAll({where:{ tagId: tagId}})
 
+        const taskData = await Task.findAll({where:{taskId: tagExists.taskId}})
+
+        return res.status(200).json({message: 'Task listed Sucessfully', data: taskData})
+       
+    } catch (error) {
+        console.log(error);
+    return res
+      .status(500)
+      .json({ message: "error at created Task", error: error });
+    }
+    next();
 }

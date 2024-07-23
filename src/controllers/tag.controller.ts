@@ -22,7 +22,7 @@ export const createTag = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
-export const getTag = async (req: Request, res: Response, next: NextFunction) => {
+export const listTag = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const tagData = await Tag.findAll()
         

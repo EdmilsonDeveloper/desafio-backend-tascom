@@ -13,7 +13,8 @@ export class Tag extends Model {
     })
     tagId:String
     @Column({
-        type: DataType.STRING
+        type: DataType.STRING,
+        unique: true
     })
     name:String
     @Column({
