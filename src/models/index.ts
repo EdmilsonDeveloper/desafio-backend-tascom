@@ -1,9 +1,6 @@
-// import { Tag } from "./tag.models";
-// import { Task } from "./task.models";
-// import { TaskTag } from "./taskTag.model";
-// import sequelize from './../config/database';
+import { Tag } from "./tag.models";
+import { Task } from "./task.models";
+import { TaskTag } from "./taskTag.model";
 
-// Task.belongsToMany(Tag, {through: TaskTag})
-// Tag.belongsToMany(Task, {through: TaskTag})
-
-// export {sequelize, Task, Tag, TaskTag}
+export const taskTag = Task.belongsToMany(Tag, {through: TaskTag})
+export const tagTask = Tag.belongsToMany(Task, {through: TaskTag})

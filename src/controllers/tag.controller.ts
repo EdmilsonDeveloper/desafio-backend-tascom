@@ -39,7 +39,7 @@ export const listTag = async (req: Request, res: Response, next: NextFunction) =
         console.log(error);
         return res
           .status(500)
-          .json({ message: "error at created Tag", error: error });
+          .json({ message: "error at listed Tag", error: error });
     }
 }
 
@@ -62,13 +62,13 @@ export const updateTag = async (req: Request, res: Response, next: NextFunction)
             {where:{tagId: id}}
         )
 
-        return res.status(201).json({message: "Tag updated sucessfully"})
+        return res.status(200).json({message: "Tag updated sucessfully"})
         
     } catch (error) {
         console.log(error);
     return res
       .status(500)
-      .json({ message: "error at created Tag", error: error });
+      .json({ message: "error at updated Tag", error: error });
     }
 }
 
@@ -84,6 +84,6 @@ export const deleteTag = async (req: Request, res: Response, next: NextFunction)
         console.log(error);
     return res
       .status(500)
-      .json({ message: "error at created Tag", error: error });
+      .json({ message: "error at deleted Tag", error: error });
     }
 }

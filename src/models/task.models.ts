@@ -1,4 +1,5 @@
 import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { taskTag } from './index';
 
 
 @Table({

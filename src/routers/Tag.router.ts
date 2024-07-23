@@ -3,9 +3,9 @@ import { createTag, deleteTag, listTag, updateTag } from "../controllers/tag.con
 
 const router = Router()
 
-router.post('/tag', createTag )
-router.get('/tag', listTag)
-router.patch('/tag/:id', updateTag)
-router.delete('/tag/:id', deleteTag)
+router.post('/tags', createTag )
+router.get('/tags', listTag)
+router.patch('/tags/:id', updateTag)
+router.delete('/tags/:id', deleteTag)
 
 export default router

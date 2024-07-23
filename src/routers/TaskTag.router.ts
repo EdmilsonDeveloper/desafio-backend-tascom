@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { createAssociation, listAssociation } from "../controllers/taskTag.controller";
+import { createTaskTag, deleteTaskTag, listTaskTag } from "../controllers/taskTag.controller";
 
 const router = Router()
 
-router.post('/association',  createAssociation)
-router.get('/association', listAssociation)
-router.delete('/association/:id', )
+router.post('/taskTags', createTaskTag )
+router.get('/taskTags', listTaskTag)
+router.delete('/taskTags/:id', deleteTaskTag)
 
 export default router

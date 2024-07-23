@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Task } from "../models/task.models";
-import { TaskTag } from "../models/taskTag.model";
+import { Tag } from "../models/tag.models";
+import { Model } from 'sequelize-typescript';
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -39,7 +40,7 @@ export const listTask = async (req: Request, res: Response, next: NextFunction) 
         console.log(error);
     return res
       .status(500)
-      .json({ message: "error at created Task", error: error });
+      .json({ message: "error at listed Task", error: error });
     }
 }
 
@@ -66,13 +67,13 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
             {where:{taskId: id}}
         )
 
-        return res.status(201).json({message: "Task updated sucessfully"})
+        return res.status(200).json({message: "Task updated sucessfully"})
         
     } catch (error) {
         console.log(error);
     return res
       .status(500)
-      .json({ message: "error at created Task", error: error });
+      .json({ message: "error at updated Task", error: error });
     }
 }
 
@@ -84,13 +85,13 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
             where:{taskId: id}
         })
     
-        return res.status(201).json({message: "Task deleted sucessfully"})
+        return res.status(200).json({message: "Task deleted sucessfully"})
         
     } catch (error) {
         console.log(error);
     return res
       .status(500)
-      .json({ message: "error at created Task", error: error });
+      .json({ message: "error at deleted Task", error: error });
     }
 
 }
@@ -98,17 +99,25 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
 export const filteredTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {tagId} = req.body
-        const tagExists = await TaskTag.findAll({where:{ tagId: tagId}})
 
-        const taskData = await Task.findAll({where:{taskId: tagExists.taskId}})
-
-        return res.status(200).json({message: 'Task listed Sucessfully', data: taskData})
+       const taskTag = await Task.findAll({
+        include:[
+            {
+                model: Tag,
+                as: 'tags',
+                where:{
+                    tagId
+                }
+            }
+        ]
+       })
+      
+        return res.status(200).json({message: 'Task listed Sucessfully', data: taskTag })
        
     } catch (error) {
         console.log(error);
     return res
       .status(500)
-      .json({ message: "error at created Task", error: error });
+      .json({ message: "error at listed Task", error: error });
     }
-    next();
 }

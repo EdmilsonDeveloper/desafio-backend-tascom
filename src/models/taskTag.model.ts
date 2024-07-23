@@ -31,5 +31,23 @@ export class TaskTag extends Model {
         },
         onDelete: 'CASCADE'
     })
-    tagId: String
+    tagId: String   
 }
+
+
+// export const TaskTag = sequelize.define('TaskTag', {
+//     taskId:{
+//         type: DataType.UUID,
+//         references:{
+//             model: Task,
+//             key: 'taskId'
+//         },
+//     },
+//     tagId:{
+//         type: DataType.UUID,
+//         references:{
+//             model: Tag,
+//             key: 'tagId'
+//         },
+//     }
+// })
